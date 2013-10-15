@@ -4,7 +4,7 @@ var mongoDB = mongo.db('localhost:27017/sermon', {
 });
 
 module.exports = function(app) {
-    app.get('/speakers', function(req, res) {
+    app.get('/speakers.json', function(req, res) {
         mongoDB.collection('speakers').find({
             status: 1
         }).sort({
@@ -19,7 +19,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/sources', function(req, res) {
+    app.get('/sources.json', function(req, res) {
         mongoDB.collection('sources').find({
             status: 1
         }).sort({
@@ -34,7 +34,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/sources/:name/albums', function(req, res) {
+    app.get('/sources/:name/albums.json', function(req, res) {
         mongoDB.collection('albums').find({
             status: 1,
             source: req.params.name
@@ -50,7 +50,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/speakers/:name/albums', function(req, res) {
+    app.get('/speakers/:name/albums.json', function(req, res) {
         mongoDB.collection('albums').find({
             status: 1,
             speaker: req.params.name
@@ -66,7 +66,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/albums/:id/sermons', function(req, res) {
+    app.get('/albums/:id/sermons.json', function(req, res) {
         mongoDB.collection('albums').findById(req.params.id, function(err, album) {
             if (album) {
                 mongoDB.collection('sermons').find({
